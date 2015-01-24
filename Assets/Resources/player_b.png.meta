@@ -1,6 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 7dbc4963c190547ffb469b5ba8c50a63
 TextureImporter:
+=======
+guid: 56f8205cea4fb134fa88298a79a0d6f1
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: player_b
+>>>>>>> FETCH_HEAD
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

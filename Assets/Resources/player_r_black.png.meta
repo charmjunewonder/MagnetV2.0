@@ -1,6 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 670ad8594a2384805849544c0eac53ba
 TextureImporter:
+=======
+guid: 0937422e8942ccf41bd3d1cc248a635b
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: player_r_black
+>>>>>>> FETCH_HEAD
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

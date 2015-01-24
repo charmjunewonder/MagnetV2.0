@@ -1,6 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: e247b2656a00f4971a650490a458321d
 TextureImporter:
+=======
+guid: 80b110e0749a634478b22fc60080e56b
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: borderLine
+>>>>>>> FETCH_HEAD
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
