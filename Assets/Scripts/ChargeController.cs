@@ -14,7 +14,7 @@ public class ChargeController : MonoBehaviour {
 	
 	}
 
-	void OnTriggerEnter(Collider other) {
+	void OnTriggerEnter2D(Collider2D other) {
 		other.gameObject.GetComponent<MagnetController>().score += score;
 
         gameObject.SetActive(false);
