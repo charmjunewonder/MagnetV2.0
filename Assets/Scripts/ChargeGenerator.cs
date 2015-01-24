@@ -18,15 +18,15 @@ public class ChargeGenerator : MonoBehaviour {
 		while(true){
 			Vector3 pos = getRandomPosition();
 			if(pos.x > 10){
-				yield return new WaitForSeconds(1.5f);
+				yield return new WaitForSeconds(3f);
 				continue;
 			}
 			GameObject chargeClone = objectPool.GetObjectFromPool();
 			chargeClone.transform.position = pos;
 			chargeClone.SetActive(true);
-			chargeClone.GetComponent<ChargeController>().score = Random.Range (-8, 8);
+//			chargeClone.GetComponent<ChargeController>().score = Random.Range (-8, 8);
 
-			yield return new WaitForSeconds(1.5f);
+			yield return new WaitForSeconds(3f);
 		}
 	}
 
@@ -42,11 +42,11 @@ public class ChargeGenerator : MonoBehaviour {
 		GameObject[] charges = GameObject.FindGameObjectsWithTag("Charge");
 		for(int i = 0; i < 30; i++){
 			bool isGood = true;
-			pos = new Vector3 (Random.Range (-5.0f, 5.0f), Random.Range (-3.5f, 3.5f), 0);
+			pos = new Vector3 (Random.Range (-4.1f, 4.1f), Random.Range (-2.9f, 2.9f), 0);
 
 			for(int j = 0; j < magnets.Length; j++){
 //				Debug.Log(Distance2D(pos, magnets[j].transform.position));
-				if(Distance2D(pos, magnets[j].transform.position) < 0.6f){
+				if(Distance2D(pos, magnets[j].transform.position) < 0.43f){
 //					Debug.Log("magnets" + Distance2D(pos, magnets[j].transform.position));
 					isGood &= false;
 				}
@@ -54,7 +54,7 @@ public class ChargeGenerator : MonoBehaviour {
 
 			for(int j = 0; j < charges.Length; j++){
 				if(charges[j].activeSelf == false) continue;
-				if(Distance2D(pos, charges[j].transform.position) < 0.45f){
+				if(Distance2D(pos, charges[j].transform.position) < 0.23f){
 //					Debug.Log("charges" + Distance2D(pos, charges[j].transform.position));
 					isGood &= false;
 				}
