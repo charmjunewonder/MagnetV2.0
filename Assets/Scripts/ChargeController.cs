@@ -14,6 +14,10 @@ public class ChargeController : MonoBehaviour {
 	
 	}
 
+	IEnumerator dieInSeconds(){
+		yield return new WaitForSeconds (5);
+		gameObject.SetActive(false);
+	}
 	void OnTriggerEnter2D(Collider2D other) {
 		other.gameObject.GetComponent<MagnetController>().score += score;
 

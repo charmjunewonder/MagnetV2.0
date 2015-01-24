@@ -6,7 +6,7 @@ public class ChargeGenerator : MonoBehaviour {
 	public ObjectPool objectPool;
 	// Use this for initialization
 	void Start () {
-		StartCoroutine(createSpecialItem());
+		StartCoroutine(createCharge());
 	}
 	
 	// Update is called once per frame
@@ -14,11 +14,11 @@ public class ChargeGenerator : MonoBehaviour {
 	
 	}
 
-	IEnumerator createSpecialItem(){
+	IEnumerator createCharge(){
 		while(true){
 			Vector3 pos = getRandomPosition();
 			if(pos.x > 10){
-				yield return new WaitForSeconds(1f);
+				yield return new WaitForSeconds(1.5f);
 				continue;
 			}
 			GameObject chargeClone = objectPool.GetObjectFromPool();
@@ -26,7 +26,7 @@ public class ChargeGenerator : MonoBehaviour {
 			chargeClone.SetActive(true);
 			chargeClone.GetComponent<ChargeController>().score = Random.Range (-8, 8);
 
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(1.5f);
 		}
 	}
 
