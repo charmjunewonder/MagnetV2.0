@@ -1,13 +1,8 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: 0e2d046d7a17d419785ced437f04795f
-TextureImporter:
-=======
-guid: ecca809b317686f4c93ba96b81885ac5
 TextureImporter:
   fileIDToRecycleName:
     21300000: yellow_negativeSign
->>>>>>> FETCH_HEAD
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

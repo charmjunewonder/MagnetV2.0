@@ -1,13 +1,8 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: b1ae5e55cffdf4a6798fc32a3cde1676
-TextureImporter:
-=======
-guid: 3a2796b578660fe4bbc61afd19b10d1d
 TextureImporter:
   fileIDToRecycleName:
     21300000: bar_black
->>>>>>> FETCH_HEAD
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
