@@ -39,13 +39,13 @@ public class MagnetController : MonoBehaviour {
             return;
         }
         DrawLineToStrongestMagnet();
-        rigidbody2D.AddForce(strongestForce);
+		rigidbody2D.AddForce (strongestForce);//, ForceMode2D.Impulse);
     }
 
     public void OnQuantityChanged() {
         if (UIProgressBar.current != null)
         {
-            quantityOfCharge = Mathf.RoundToInt(UIProgressBar.current.value * 2) - 1.0f;
+            quantityOfCharge = UIProgressBar.current.value * 2 - 1.0f;
         }
     }
 
