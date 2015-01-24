@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class MagnetController : MonoBehaviour {
-    //public GameObject sign;
+    public GameObject sign;
 
     public float quantityOfCharge = 1.0f;
 
@@ -45,7 +45,10 @@ public class MagnetController : MonoBehaviour {
     public void OnQuantityChanged() {
         if (UIProgressBar.current != null)
         {
-            quantityOfCharge = UIProgressBar.current.value * 2 - 1.0f;
+			float nextQuantity = UIProgressBar.current.value * 2 - 1.0f;
+			sign.GetComponent<SignController>().ChangeSign(nextQuantity);
+			quantityOfCharge = nextQuantity;
+
         }
     }
 
