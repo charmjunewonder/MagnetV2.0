@@ -25,7 +25,7 @@ public class ForceFieldGenerator : MonoBehaviour {
 			GameObject forceFieldClone = objectPool.GetObjectFromPool();
 			forceFieldClone.transform.position = pos;
 			forceFieldClone.GetComponent<ForceFieldController>().startToDie();
-			forceFieldClone.GetComponent<ForceFieldController>().startToSpin();
+			forceFieldClone.GetComponent<ForceFieldController>().startToDiffuse();
 
 			int choice = Random.Range(0, 2);
 			choice = choice * 2 - 1;
