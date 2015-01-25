@@ -54,6 +54,7 @@ public class ChargeController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 		GameData.TotalScore += score;
 		GameData.LifeAmout += 0.2f;
+		other.gameObject.GetComponent<MagnetController>().addScore(score);
         AudioSource.PlayClipAtPoint(scoring,transform.position);
         gameObject.SetActive(false);
     }

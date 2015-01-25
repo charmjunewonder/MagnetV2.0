@@ -77,10 +77,10 @@ namespace Game {
 		IEnumerator lifeDecrease(){
 			lifeBar.SetFloat("_Amount", 5.1f);
 			yield return new WaitForSeconds(1.0f);
-			float speed = 0.01f;
+			float speed = 0.005f;
 			int count = 0;
 			while (true) {
-				if(count % 100 == 0) speed += 0.01f;
+				if(count % 100 == 0) speed += 0.005f;
 				GameData.LifeAmout -= speed;
                 if (GameData.LifeAmout <= -5.1f && !isEnding) {
                     isEnding = true;

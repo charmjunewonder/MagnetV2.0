@@ -38,7 +38,7 @@ Shader "Custom/lifebar" {
       void surf (Input IN, inout SurfaceOutput o) {
           clip (_Amount - IN.worldPos.x);
           half4 c = tex2D (_MainTex, IN.uv_MainTex);
-          o.Albedo = c.rgb * _Color;
+          o.Albedo = c.rgb * _Color * 2;
           o.Alpha = c.a * 0.5f;
       }
       ENDCG

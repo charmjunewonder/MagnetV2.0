@@ -10,6 +10,8 @@ public class MagnetController : MonoBehaviour {
 
 	public int score = 0;
 
+	public TextMesh scoreText;
+
     private GameObject strongestMagnet = null;
 
     private Vector2 strongestForce = Vector2.zero;
@@ -19,6 +21,7 @@ public class MagnetController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         bouncing = Resources.Load("Sound/bounce",typeof(AudioClip)) as AudioClip;
+		scoreText.text = "0";
 	}
 	
 	// Update is called once per frame
@@ -26,6 +29,10 @@ public class MagnetController : MonoBehaviour {
 	
 	}
 
+	public void addScore(int s){
+		score += s;
+		scoreText.text = "" + score;
+	}
 
     void FixedUpdate()
     {
