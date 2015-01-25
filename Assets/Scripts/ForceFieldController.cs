@@ -2,14 +2,44 @@
 using System.Collections;
 
 public class ForceFieldController : MonoBehaviour {
+	public GameObject sign;
 
 	public float quantityOfCharge = 30.0f;
-
+	public Renderer selfRenderer;
 	// Use this for initialization
 	void Start () {
-	
+	}
+
+	public void startToDie(){
+		StartCoroutine (dieInSeconds ());
+	}
+
+	public void startToSpin(){
+		StopCoroutine ("startSpinning");
+		StartCoroutine ("startSpinning");
+	}
+
+	IEnumerator startSpinning(){
+		while (true) {
+			transform.Rotate(0, 0, 10);
+			yield return new WaitForSeconds(0.1f);
+		}
 	}
 	
+	IEnumerator dieInSeconds(){
+		yield return new WaitForSeconds (4);
+		for (int i = 0; i < 10; i++) {
+			yield return new WaitForSeconds(0.1f);
+			selfRenderer.enabled = !selfRenderer.enabled;
+		}
+		gameObject.SetActive(false);
+	}
+
+	public void SetSign(int s){
+		quantityOfCharge *= s;
+		sign.GetComponent<SignController> ().ChangeSign (s);
+	}
+
 	// Update is called once per frame
 	void FixedUpdate () {
 		GameObject[] magnets = GameObject.FindGameObjectsWithTag("Magnet");

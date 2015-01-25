@@ -8,7 +8,6 @@ public class SignController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		sign = 0;
-		GetComponent<SpriteRenderer> ().sprite = null;
 	}
 
 	public void ChangeSign(float s){
