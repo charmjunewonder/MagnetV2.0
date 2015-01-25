@@ -73,7 +73,7 @@ public class MagnetController : MonoBehaviour {
         lineRenderer.SetPosition(1, strongestMagnet.transform.position);
 		float len = (transform.position - strongestMagnet.transform.position).magnitude;
 		len = Mathf.Clamp (len,0.0f, 6.0f);
-		len /= 6.0f;
+		len = len / 6.1f;
 		lineRenderer.material.SetFloat ("_Intensity",len);
     }
 
