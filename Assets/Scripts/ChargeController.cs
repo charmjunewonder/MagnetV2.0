@@ -45,6 +45,7 @@ public class ChargeController : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D other) {
 		GameData.TotalScore += score;
+		GameData.LifeAmout += 0.5f;
         gameObject.SetActive(false);
     }
 }

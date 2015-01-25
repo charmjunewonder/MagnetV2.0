@@ -31,10 +31,14 @@ namespace Game {
         }
 
 		IEnumerator lifeDecrease(){
+			lifeBar.SetFloat("_Amount", 5.1f);
+			yield return new WaitForSeconds(1.0f);
+
 			while (true) {
-				GameData.LifeAmout -= 0.5f;
+				GameData.LifeAmout -= 0.2f;
 				lifeBar.SetFloat("_Amount", GameData.LifeAmout);
 				yield return new WaitForSeconds(1.0f);
+
 			}
 		}
     }
