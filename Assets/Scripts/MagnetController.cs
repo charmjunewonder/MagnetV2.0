@@ -12,7 +12,7 @@ public class MagnetController : MonoBehaviour {
 	public int score = 0;
 
 	public TextMesh scoreText;
-
+	public Color color;
     private GameObject strongestMagnet = null;
 
     private Vector2 strongestForce = Vector2.zero;

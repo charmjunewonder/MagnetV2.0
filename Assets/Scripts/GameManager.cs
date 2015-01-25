@@ -22,12 +22,13 @@ namespace Game {
 		public UIController uicontroller;
 
         private bool isEnding = false;
-
+		private GameObject[] magnets;
         // Use this for initialization
         void Start()
         {
             GameData.resetGameData();
-
+			magnets = GameObject.FindGameObjectsWithTag("Magnet");
+			scoreTex.color = Color.white;
             isEnding = false;
 			if (isStart) {
 				gameState = GameState.Start;
@@ -49,6 +50,7 @@ namespace Game {
 			case GameState.Game:
 				GameData.chargeLife -= reduceSpeed * Time.deltaTime;
 				Mathf.Clamp(GameData.chargeLife, 1.0f, 10.0f);
+				updateCenterScore();
 				break;
 			case GameState.End:
 				if((Input.touchCount != 0 && Input.touches[0].tapCount == 2) || Input.GetKeyDown(KeyCode.Space))
@@ -57,9 +59,26 @@ namespace Game {
 			default: 
 				break;
 			}
-            
+
         }
 
+		void updateCenterScore(){
+			magnets = GameObject.FindGameObjectsWithTag("Magnet");
+			GameObject highest = null;
+			float max = float.MinValue;
+			for (int i = 0; i < magnets.Length; i++)
+			{
+				if (magnets[i].GetComponent<MagnetController>().score > max)
+				{
+					max = magnets[i].GetComponent<MagnetController>().score;
+					highest = magnets[i];
+				}
+			}
+			if (max == 0) 			
+				scoreTex.color = Color.white;
+			else
+				scoreTex.color = highest.GetComponent<MagnetController> ().color;
+		}
 
         void FixedUpdate() {
             scoreTex.text = GameData.TotalScore.ToString();
