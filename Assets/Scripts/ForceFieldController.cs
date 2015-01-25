@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ForceFieldController : MonoBehaviour {
 
-	public float quantityOfCharge = 50.0f;
+	public float quantityOfCharge = 30.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -17,9 +17,10 @@ public class ForceFieldController : MonoBehaviour {
 		float max = float.MinValue;
 		for (int i = 0; i < magnets.Length; i++) {
 			Vector3 direction = magnets[i].transform.position - transform.position;
-			if (direction.magnitude < 1f) return;
+			float targetCharge = magnets[i].GetComponent<MagnetController>().quantityOfCharge;
+			if (direction.magnitude < 1f && targetCharge * quantityOfCharge < 0) return;
 			float distance = Vector3.Distance(magnets[i].transform.position, transform.position);
-			float force = -1.0f * magnets[i].GetComponent<MagnetController>().quantityOfCharge * quantityOfCharge / (distance * distance);
+			float force = targetCharge * quantityOfCharge / (distance * distance);
 			direction.Normalize();
 			Vector2 direction2d = new Vector2(direction.x,direction.y);
 			magnets[i].rigidbody2D.AddForce(direction2d * force);

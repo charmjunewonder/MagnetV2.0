@@ -6,7 +6,7 @@ namespace Game {
         public TextMesh scoreTex;
 
 
-        public float reduceSpeed = 0.01f;
+        public float reduceSpeed = 0.005f;
 
 		public Material lifeBar;
 
@@ -33,12 +33,15 @@ namespace Game {
 		IEnumerator lifeDecrease(){
 			lifeBar.SetFloat("_Amount", 5.1f);
 			yield return new WaitForSeconds(1.0f);
-
+			float speed = 0.1f;
+			int count = 0;
 			while (true) {
-				GameData.LifeAmout -= 0.2f;
+				if(count % 10 == 0) speed += 0.1f;
+				GameData.LifeAmout -= speed;
+				GameData.LifeAmout = Mathf.Clamp(GameData.LifeAmout, -5.1f, 5.1f);
 				lifeBar.SetFloat("_Amount", GameData.LifeAmout);
 				yield return new WaitForSeconds(1.0f);
-
+				count++;
 			}
 		}
     }

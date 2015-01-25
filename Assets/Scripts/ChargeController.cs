@@ -5,7 +5,7 @@ using Game;
 public class ChargeController : MonoBehaviour {
 
 	public int score = 1;
-    private float life;
+    public float life;
     private float dangerLife = 1.0f;
     private bool danger;
     private SpriteRenderer render;
@@ -45,7 +45,7 @@ public class ChargeController : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D other) {
 		GameData.TotalScore += score;
-		GameData.LifeAmout += 0.5f;
+		GameData.LifeAmout += 0.2f;
         gameObject.SetActive(false);
     }
 }

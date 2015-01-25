@@ -4,6 +4,7 @@ using System.Collections;
 public class ChargeGenerator : MonoBehaviour {
 	public GameObject charge;
 	public ObjectPool objectPool;
+	private float generateSpeed = 1;
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(createCharge());
@@ -14,20 +15,37 @@ public class ChargeGenerator : MonoBehaviour {
 	
 	}
 
+	IEnumerator checkTheCountOfCharge(){
+		while (true) {
+			GameObject[] charges = GameObject.FindGameObjectsWithTag("Charge");
+			int count = 0;
+			for(int j = 0; j < charges.Length; j++){
+				if(charges[j].activeSelf == true){
+					count++;
+				}
+			}
+			generateSpeed = 1;
+			if(count < 10){
+				generateSpeed = 0.5f;
+			}
+			yield return new WaitForSeconds(0.5f);
+		}
+	}
+
 	IEnumerator createCharge(){
 		while(true){
 			Vector3 pos = getRandomPosition();
 			if(pos.x > 10){
-				yield return new WaitForSeconds(3f);
+				yield return new WaitForSeconds(generateSpeed);
 				continue;
 			}
 			GameObject chargeClone = objectPool.GetObjectFromPool();
 			chargeClone.transform.position = pos;
+			chargeClone.GetComponent<ChargeController>().ResetLife();
 			chargeClone.SetActive(true);
-            chargeClone.GetComponent<ChargeController>().ResetLife();
 //			chargeClone.GetComponent<ChargeController>().score = Random.Range (-8, 8);
 
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(generateSpeed);
 		}
 	}
 

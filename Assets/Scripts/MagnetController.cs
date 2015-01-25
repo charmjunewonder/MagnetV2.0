@@ -40,7 +40,7 @@ public class MagnetController : MonoBehaviour {
     public void OnQuantityChanged() {
         if (UIProgressBar.current != null)
         {
-			float nextQuantity = UIProgressBar.current.value * 2 - 1.0f;
+			float nextQuantity =  1.0f - UIProgressBar.current.value * 2 ;
 			sign.GetComponent<SignController>().ChangeSign(nextQuantity);
 			quantityOfCharge = nextQuantity;
 

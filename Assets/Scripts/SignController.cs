@@ -13,13 +13,13 @@ public class SignController : MonoBehaviour {
 
 	public void ChangeSign(float s){
 		Sprite targetSprite = null;
-		if (s < 0) {
-			targetSprite = positveSign;
-			s = -1;
-		}
 		if (s > 0) {
-			targetSprite = negativeSign;
+			targetSprite = positveSign;
 			s = 1;
+		}
+		if (s < 0) {
+			targetSprite = negativeSign;
+			s = -1;
 		}
 		if (s != sign) {
 			sign = s;
