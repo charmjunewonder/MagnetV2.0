@@ -13,11 +13,12 @@ public class MagnetController : MonoBehaviour {
     private GameObject strongestMagnet = null;
 
     private Vector2 strongestForce = Vector2.zero;
-	
+
+    private AudioClip bouncing;
 
 	// Use this for initialization
 	void Start () {
-
+        bouncing = Resources.Load("Sound/bounce",typeof(AudioClip)) as AudioClip;
 	}
 	
 	// Update is called once per frame
@@ -80,6 +81,11 @@ public class MagnetController : MonoBehaviour {
         direction.Normalize();
         direction *= force;
         return new Vector2(direction.x, direction.y);
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        AudioSource.PlayClipAtPoint(bouncing,transform.position);
     }
     /*
      * 
