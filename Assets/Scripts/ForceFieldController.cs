@@ -27,7 +27,7 @@ public class ForceFieldController : MonoBehaviour {
 	}
 	
 	IEnumerator dieInSeconds(){
-		yield return new WaitForSeconds (4);
+		yield return new WaitForSeconds (10);
 		for (int i = 0; i < 10; i++) {
 			yield return new WaitForSeconds(0.1f);
 			selfRenderer.enabled = !selfRenderer.enabled;
@@ -36,8 +36,8 @@ public class ForceFieldController : MonoBehaviour {
 	}
 
 	public void SetSign(int s){
-		quantityOfCharge *= s;
-		sign.GetComponent<SignController> ().ChangeSign (s);
+		quantityOfCharge = s * 30;
+		sign.GetComponent<SignController> ().SetSign (s);
 	}
 
 	// Update is called once per frame

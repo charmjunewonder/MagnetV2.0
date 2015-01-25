@@ -20,9 +20,21 @@ public class SignController : MonoBehaviour {
 			targetSprite = negativeSign;
 			s = -1;
 		}
+//		Debug.Log (s + " " + sign);
 		if (s != sign) {
+//			Debug.Log ("change");
+
 			sign = s;
 			GetComponent<SpriteRenderer> ().sprite = targetSprite;
+		}
+	}
+
+	public void SetSign(float s){
+		if (s > 0) {
+			GetComponent<SpriteRenderer> ().sprite = positveSign;
+		}
+		if (s < 0) {
+			GetComponent<SpriteRenderer> ().sprite = negativeSign;
 		}
 	}
 

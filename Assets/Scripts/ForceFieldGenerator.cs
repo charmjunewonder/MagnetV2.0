@@ -29,8 +29,9 @@ public class ForceFieldGenerator : MonoBehaviour {
 
 			int choice = Random.Range(0, 2);
 			choice = choice * 2 - 1;
-			forceFieldClone.SetActive(true);
 			forceFieldClone.GetComponent<ForceFieldController>().SetSign(choice);
+
+			forceFieldClone.SetActive(true);
 
 			yield return new WaitForSeconds(generateSpeed);
 		}
