@@ -24,9 +24,10 @@ public class ChargeGenerator : MonoBehaviour {
 			GameObject chargeClone = objectPool.GetObjectFromPool();
 			chargeClone.transform.position = pos;
 			chargeClone.SetActive(true);
+            chargeClone.GetComponent<ChargeController>().ResetLife();
 //			chargeClone.GetComponent<ChargeController>().score = Random.Range (-8, 8);
 
-			yield return new WaitForSeconds(3f);
+			yield return new WaitForSeconds(1f);
 		}
 	}
 

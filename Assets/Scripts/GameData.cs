@@ -6,5 +6,6 @@ namespace Game {
 
         public static int TotalScore = 0;
 
+        public static float chargeLife = 6.0f;
     }
 }
