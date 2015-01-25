@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ForceFieldController : MonoBehaviour {
 	public GameObject sign;
-
+	public GameObject forceFieldObject;
 	public float quantityOfCharge = 30.0f;
 	public Renderer selfRenderer;
 	// Use this for initialization
@@ -21,8 +21,8 @@ public class ForceFieldController : MonoBehaviour {
 
 	IEnumerator startSpinning(){
 		while (true) {
-			transform.Rotate(0, 0, 10);
-			yield return new WaitForSeconds(0.1f);
+			forceFieldObject.transform.Rotate(0, 0, -5);
+			yield return new WaitForSeconds(0.05f);
 		}
 	}
 	
