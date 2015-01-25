@@ -27,7 +27,7 @@ public class ForceFieldController : MonoBehaviour {
 	}
 	
 	IEnumerator dieInSeconds(){
-		yield return new WaitForSeconds (10);
+		yield return new WaitForSeconds (9);
 		for (int i = 0; i < 10; i++) {
 			yield return new WaitForSeconds(0.1f);
 			selfRenderer.enabled = !selfRenderer.enabled;

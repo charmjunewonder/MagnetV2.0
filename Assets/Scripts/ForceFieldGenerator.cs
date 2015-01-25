@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ForceFieldGenerator : MonoBehaviour {
 	public ObjectPool objectPool;
-	private float generateSpeed = 10;
+	private float generateSpeed = 13;
 
 	// Use this for initialization
 	void Start () {
@@ -53,7 +53,7 @@ public class ForceFieldGenerator : MonoBehaviour {
 			
 			for(int j = 0; j < magnets.Length; j++){
 				//				Debug.Log(Distance2D(pos, magnets[j].transform.position));
-				if(Distance2D(pos, magnets[j].transform.position) < 0.43f){
+				if(Distance2D(pos, magnets[j].transform.position) < 1.5f){
 					//					Debug.Log("magnets" + Distance2D(pos, magnets[j].transform.position));
 					isGood &= false;
 				}
@@ -61,7 +61,7 @@ public class ForceFieldGenerator : MonoBehaviour {
 			
 			for(int j = 0; j < charges.Length; j++){
 				if(charges[j].activeSelf == false) continue;
-				if(Distance2D(pos, charges[j].transform.position) < 0.23f){
+				if(Distance2D(pos, charges[j].transform.position) < 1f){
 					//					Debug.Log("charges" + Distance2D(pos, charges[j].transform.position));
 					isGood &= false;
 				}
