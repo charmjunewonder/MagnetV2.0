@@ -4,16 +4,24 @@ namespace Game {
     public class GameManager : MonoBehaviour
     {
         public TextMesh scoreTex;
-
+        public Blur cameraBlur;
 
         public float reduceSpeed = 0.005f;
 
 		public Material lifeBar;
 
+        public UILabel gameoverLal;
+        public UILabel restartLal;
+
+        public bool isEnding = false;
+        public bool isEnded = false;
+
+        private string highscoreKey = "HighScore";
+
         // Use this for initialization
         void Start()
         {
-            GameData.TotalScore = 0;
+            GameData.resetGameData();
 			StartCoroutine (lifeDecrease ());
 
         }
@@ -23,11 +31,34 @@ namespace Game {
         {
             GameData.chargeLife -= reduceSpeed * Time.deltaTime;
             Mathf.Clamp(GameData.chargeLife, 1.0f, 10.0f);
+            if (isEnded && (Input.touchCount != 0 || Input.GetKeyDown(KeyCode.Space)))
+            {
+                RestartGame();
+            }
         }
 
 
         void FixedUpdate() {
             scoreTex.text = GameData.TotalScore.ToString();
+        }
+
+        public void RestartGame() {
+            Application.LoadLevel("Gameplay");
+        }
+
+        public void EndGame() {
+            
+            StartCoroutine(EndingGame());
+        }
+
+        IEnumerator EndingGame() {
+            for (int i = 0; i < 5; i++) {
+                yield return new WaitForSeconds(0.1f);
+                cameraBlur.blurSize += 1.0f;
+            }
+            gameoverLal.enabled = true;
+            restartLal.enabled = true;
+            isEnded = true;
         }
 
 		IEnumerator lifeDecrease(){
@@ -38,6 +69,10 @@ namespace Game {
 			while (true) {
 				if(count % 10 == 0) speed += 0.1f;
 				GameData.LifeAmout -= speed;
+                if (GameData.LifeAmout <= -5.1f && !isEnding) {
+                    isEnding = true;
+                    EndGame();
+                }
 				GameData.LifeAmout = Mathf.Clamp(GameData.LifeAmout, -5.1f, 5.1f);
 				lifeBar.SetFloat("_Amount", GameData.LifeAmout);
 				yield return new WaitForSeconds(1.0f);
