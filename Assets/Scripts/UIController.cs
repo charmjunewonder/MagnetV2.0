@@ -5,6 +5,7 @@ using Game;
 public class UIController : MonoBehaviour {
 
 	public GameObject[] thumbs;
+	public GameObject[] sliders;
 	public UILabel gameoverLal;
 	public UILabel scoreLal;
 	public UILabel restartLal;
@@ -14,7 +15,9 @@ public class UIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		foreach (GameObject slider in sliders) {
+			slider.GetComponentInChildren<UISlider>().value = Random.Range(0.0f,1.0f);		
+		}
 	}
 	
 	// Update is called once per frame

@@ -1,8 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 namespace Game {
+	public enum GameState{
+		Start = 0,
+		Game,
+		End,
+	}
+
+
     public class GameManager : MonoBehaviour
     {
+		public static GameState gameState;
         public TextMesh scoreTex;
         public Blur cameraBlur;
 
@@ -23,6 +31,7 @@ namespace Game {
 			StartCoroutine (lifeDecrease ());
             isEnding = false;
             isEnded = false;
+			gameState = GameState.Game;
         }
 
         // Update is called once per frame
@@ -58,6 +67,7 @@ namespace Game {
             }
 			uicontroller.ShowEndUI ();
             isEnded = true;
+			gameState = GameState.End;
         }
 
 		IEnumerator lifeDecrease(){

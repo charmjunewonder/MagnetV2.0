@@ -13,7 +13,7 @@ public class SignController : MonoBehaviour {
 	public void ChangeSign(float s){
 		Sprite targetSprite = null;
 
-		this.transform.localScale = new Vector3 (1, 1, 1) * Mathf.Abs (s) * 0.5f;
+		this.transform.localScale = new Vector3 (1, 1, 1) * Mathf.Abs (s) * 0.4f;
 		if (s > 0) {
 			targetSprite = positveSign;
 			s = 1;

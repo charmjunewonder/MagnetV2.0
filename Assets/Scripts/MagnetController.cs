@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Game;
 
 public class MagnetController : MonoBehaviour {
     public GameObject sign;
@@ -36,13 +37,18 @@ public class MagnetController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        strongestMagnet = GetStrongestMagnet();
-        if (strongestMagnet == null) {
-            strongestForce = Vector2.zero;
-            return;
-        }
-        DrawLineToStrongestMagnet();
-		rigidbody2D.AddForce (strongestForce * 10);//, ForceMode2D.Impulse);
+		if (GameManager.gameState == GameState.Game) {
+			strongestMagnet = GetStrongestMagnet();
+			if (strongestMagnet == null) {
+				strongestForce = Vector2.zero;
+				return;
+			}
+			DrawLineToStrongestMagnet();
+			rigidbody2D.AddForce (strongestForce * 10);//, ForceMode2D.Impulse);
+		}else{
+			rigidbody2D.velocity = Vector2.zero;
+			rigidbody2D.drag = 10000.0f;
+		}
     }
 
     public void OnQuantityChanged() {
