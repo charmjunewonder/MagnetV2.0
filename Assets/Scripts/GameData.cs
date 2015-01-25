@@ -5,6 +5,7 @@ namespace Game {
     {
 
         public static int TotalScore = 0;
+		public static float LifeAmout = 5.1f;
 
     }
 }
