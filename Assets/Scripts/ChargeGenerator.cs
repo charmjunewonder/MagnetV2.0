@@ -5,6 +5,7 @@ public class ChargeGenerator : MonoBehaviour {
 	public GameObject charge;
 	public ObjectPool objectPool;
 	private float generateSpeed = 1;
+
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(createCharge());
