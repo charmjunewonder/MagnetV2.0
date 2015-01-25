@@ -38,6 +38,7 @@ public class MagnetController : MonoBehaviour {
     void FixedUpdate()
     {
 		if (GameManager.gameState == GameState.Game) {
+			rigidbody2D.drag = 0.0f;
 			strongestMagnet = GetStrongestMagnet();
 			if (strongestMagnet == null) {
 				strongestForce = Vector2.zero;

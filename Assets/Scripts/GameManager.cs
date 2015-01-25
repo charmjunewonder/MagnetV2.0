@@ -10,6 +10,7 @@ namespace Game {
 
     public class GameManager : MonoBehaviour
     {
+		private static bool isStart = true;
 		public static GameState gameState;
         public TextMesh scoreTex;
         public Blur cameraBlur;
@@ -21,35 +22,56 @@ namespace Game {
 		public UIController uicontroller;
 
         private bool isEnding = false;
-		private bool isEnded = false;
-
 
         // Use this for initialization
         void Start()
         {
             GameData.resetGameData();
-			StartCoroutine (lifeDecrease ());
+
             isEnding = false;
-            isEnded = false;
-			gameState = GameState.Game;
+			if (isStart) {
+				gameState = GameState.Start;
+			} else {
+				gameState = GameState.Game;
+				StartGame();
+			}
         }
 
         // Update is called once per frame
         void Update()
         {
-            GameData.chargeLife -= reduceSpeed * Time.deltaTime;
-            Mathf.Clamp(GameData.chargeLife, 1.0f, 10.0f);
-            if (isEnded)
-            {
+			switch (gameState) {
+			case GameState.Start:
+				if(Input.touchCount != 0 && Input.touches[0].tapCount >= 1 || Input.GetKeyDown(KeyCode.Space)){
+					StartGame();
+				}
+				break;
+			case GameState.Game:
+				GameData.chargeLife -= reduceSpeed * Time.deltaTime;
+				Mathf.Clamp(GameData.chargeLife, 1.0f, 10.0f);
+				break;
+			case GameState.End:
 				if((Input.touchCount != 0 && Input.touches[0].tapCount == 2) || Input.GetKeyDown(KeyCode.Space))
-                RestartGame();
-            }
+					RestartGame();
+				break;
+			default: 
+				break;
+			}
+            
         }
 
 
         void FixedUpdate() {
             scoreTex.text = GameData.TotalScore.ToString();
         }
+
+		public void StartGame(){
+			uicontroller.HideStartUI ();
+			cameraBlur.blurSize = 0.0f;
+			gameState = GameState.Game;
+			isStart = false;
+			StartCoroutine (lifeDecrease ());
+		}
 
         public void RestartGame() {
             Application.LoadLevel("Gameplay");
@@ -66,7 +88,6 @@ namespace Game {
                 cameraBlur.blurSize += 1.0f;
             }
 			uicontroller.ShowEndUI ();
-            isEnded = true;
 			gameState = GameState.End;
         }
 

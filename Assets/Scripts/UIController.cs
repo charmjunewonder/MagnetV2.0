@@ -11,6 +11,10 @@ public class UIController : MonoBehaviour {
 	public UILabel restartLal;
 	public UILabel highscoreLal;
 
+	public UILabel startLal;
+	public UILabel titleLal;
+	public UILabel creditLal;
+
 	private string highscoreKey = "HighScore";
 
 	// Use this for initialization
@@ -18,17 +22,33 @@ public class UIController : MonoBehaviour {
 		foreach (GameObject slider in sliders) {
 			slider.GetComponentInChildren<UISlider>().value = Random.Range(0.0f,1.0f);		
 		}
+		if (GameManager.gameState == GameState.Start) {
+			disableButtons();		
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
 	private void disableButtons(){
 		foreach(GameObject thumb in thumbs){
 			thumb.GetComponent<BoxCollider>().enabled = false;
 		}
+	}
+
+	private void enableButtons(){
+		foreach(GameObject thumb in thumbs){
+			thumb.GetComponent<BoxCollider>().enabled = true;
+		}
+	}
+
+	public void HideStartUI(){
+		startLal.enabled = false;
+		titleLal.enabled = false;
+		creditLal.enabled = false;
+		enableButtons ();
 	}
 
 	public void ShowEndUI(){
