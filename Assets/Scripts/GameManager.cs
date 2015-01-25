@@ -11,6 +11,7 @@ namespace Game {
 		public Material lifeBar;
 
         public UILabel gameoverLal;
+        public UILabel highscoreLal;
         public UILabel restartLal;
 
         public bool isEnding = false;
@@ -23,7 +24,8 @@ namespace Game {
         {
             GameData.resetGameData();
 			StartCoroutine (lifeDecrease ());
-
+            isEnding = false;
+            isEnded = false;
         }
 
         // Update is called once per frame
@@ -47,7 +49,6 @@ namespace Game {
         }
 
         public void EndGame() {
-            
             StartCoroutine(EndingGame());
         }
 
@@ -58,6 +59,13 @@ namespace Game {
             }
             gameoverLal.enabled = true;
             restartLal.enabled = true;
+            highscoreLal.enabled = true;
+            int highscore = 0;
+            if (PlayerPrefs.HasKey(highscoreKey)) {
+                highscore = PlayerPrefs.GetInt(highscoreKey);
+            }
+            PlayerPrefs.SetInt(highscoreKey, Mathf.Max(highscore, GameData.TotalScore));
+            highscoreLal.text = string.Format("HighScore:{0}",highscore);
             isEnded = true;
         }
 
