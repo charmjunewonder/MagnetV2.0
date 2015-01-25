@@ -19,14 +19,14 @@ public class ChargeController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        life -= Time.deltaTime;
-        if (life < 0) {
-            gameObject.SetActive(false);
-        }
-        if (life < dangerLife && !danger) {
-            danger = true;
-            StartCoroutine(flashInSeconds());
-        }
+//        life -= Time.deltaTime;
+//        if (life < 0) {
+//            gameObject.SetActive(false);
+//        }
+//        if (life < dangerLife && !danger) {
+//            danger = true;
+//            StartCoroutine(flashInSeconds());
+//        }
 	}
     public void ResetLife() {
         life = GameData.chargeLife;
@@ -39,9 +39,16 @@ public class ChargeController : MonoBehaviour {
             render.enabled = !render.enabled;
         }
     }
-
+	public void startToDie(){
+		StartCoroutine (dieInSeconds ());
+	}
 	IEnumerator dieInSeconds(){
-		yield return new WaitForSeconds (5);
+		float seconds = Random.Range (2.5f, 5.0f);
+		yield return new WaitForSeconds (seconds);
+		for (int i = 0; i < 10; i++) {
+			yield return new WaitForSeconds(0.1f);
+			render.enabled = !render.enabled;
+		}
 		gameObject.SetActive(false);
 	}
 	void OnTriggerEnter2D(Collider2D other) {
