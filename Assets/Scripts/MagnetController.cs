@@ -71,6 +71,10 @@ public class MagnetController : MonoBehaviour {
         LineRenderer lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, strongestMagnet.transform.position);
+		float len = (transform.position - strongestMagnet.transform.position).magnitude;
+		len = Mathf.Clamp (len,0.0f, 6.0f);
+		len /= 6.0f;
+		lineRenderer.material.SetFloat ("_Intensity",len);
     }
 
     Vector2 ComputeMagentForce(Vector3 targetPositon, float targetQuantity) {

@@ -13,9 +13,10 @@ namespace Game {
         public UILabel gameoverLal;
         public UILabel highscoreLal;
         public UILabel restartLal;
+		public UIController uicontroller;
 
-        public bool isEnding = false;
-        public bool isEnded = false;
+        private bool isEnding = false;
+		private bool isEnded = false;
 
         private string highscoreKey = "HighScore";
 
@@ -66,8 +67,10 @@ namespace Game {
             if (PlayerPrefs.HasKey(highscoreKey)) {
                 highscore = PlayerPrefs.GetInt(highscoreKey);
             }
-            PlayerPrefs.SetInt(highscoreKey, Mathf.Max(highscore, GameData.TotalScore));
+			highscore = Mathf.Max (highscore, GameData.TotalScore);
+			PlayerPrefs.SetInt(highscoreKey, highscore);
             highscoreLal.text = string.Format("HighScore:{0}",highscore);
+			uicontroller.disableButtons ();
             isEnded = true;
         }
 
