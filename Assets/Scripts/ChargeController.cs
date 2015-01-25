@@ -9,6 +9,7 @@ public class ChargeController : MonoBehaviour {
     private float dangerLife = 1.0f;
     private bool danger;
     private SpriteRenderer render;
+    public AudioClip scoring;
 	// Use this for initialization
 	void Start () {
         life = GameData.chargeLife;
@@ -46,6 +47,7 @@ public class ChargeController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 		GameData.TotalScore += score;
 		GameData.LifeAmout += 0.2f;
+        AudioSource.PlayClipAtPoint(scoring,transform.position);
         gameObject.SetActive(false);
     }
 }
