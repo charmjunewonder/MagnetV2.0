@@ -24,7 +24,6 @@ Shader "Custom/lifebar" {
 		Lighting Off
 		ZWrite Off
 		Fog { Mode Off }
-		Blend One OneMinusSrcAlpha
       CGPROGRAM
       #pragma surface surf Lambert
       struct Input {
@@ -38,8 +37,8 @@ Shader "Custom/lifebar" {
       void surf (Input IN, inout SurfaceOutput o) {
           clip (_Amount - IN.worldPos.x);
           half4 c = tex2D (_MainTex, IN.uv_MainTex);
-          o.Albedo = c.rgb * _Color * 2;
-          o.Alpha = c.a * 0.5f;
+          o.Albedo = c.rgb + _Color;
+          o.Alpha = c.a;
       }
       ENDCG
     } 

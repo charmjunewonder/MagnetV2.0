@@ -10,15 +10,11 @@ namespace Game {
 
 		public Material lifeBar;
 
-        public UILabel gameoverLal;
-        public UILabel highscoreLal;
-        public UILabel restartLal;
 		public UIController uicontroller;
 
         private bool isEnding = false;
 		private bool isEnded = false;
 
-        private string highscoreKey = "HighScore";
 
         // Use this for initialization
         void Start()
@@ -60,17 +56,7 @@ namespace Game {
                 yield return new WaitForSeconds(0.1f);
                 cameraBlur.blurSize += 1.0f;
             }
-            gameoverLal.enabled = true;
-            restartLal.enabled = true;
-            highscoreLal.enabled = true;
-            int highscore = 0;
-            if (PlayerPrefs.HasKey(highscoreKey)) {
-                highscore = PlayerPrefs.GetInt(highscoreKey);
-            }
-			highscore = Mathf.Max (highscore, GameData.TotalScore);
-			PlayerPrefs.SetInt(highscoreKey, highscore);
-            highscoreLal.text = string.Format("HighScore:{0}",highscore);
-			uicontroller.disableButtons ();
+			uicontroller.ShowEndUI ();
             isEnded = true;
         }
 
