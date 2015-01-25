@@ -53,6 +53,7 @@ namespace Game {
         }
 
         IEnumerator EndingGame() {
+			cameraBlur.enabled = true;
             for (int i = 0; i < 5; i++) {
                 yield return new WaitForSeconds(0.1f);
                 cameraBlur.blurSize += 1.0f;
