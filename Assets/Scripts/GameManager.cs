@@ -33,8 +33,9 @@ namespace Game {
         {
             GameData.chargeLife -= reduceSpeed * Time.deltaTime;
             Mathf.Clamp(GameData.chargeLife, 1.0f, 10.0f);
-            if (isEnded && (Input.touchCount != 0 || Input.GetKeyDown(KeyCode.Space)))
+            if (isEnded)
             {
+				if((Input.touchCount != 0 && Input.touches[0].tapCount == 2) || Input.GetKeyDown(KeyCode.Space))
                 RestartGame();
             }
         }
