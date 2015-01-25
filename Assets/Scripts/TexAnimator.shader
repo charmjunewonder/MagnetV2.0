@@ -1,69 +1,102 @@
 ﻿Shader "Custom/TexAnimator" {
 	Properties {
 		_MainTex ("Sprite Texture", 2D) = "white" {}
+		_Color ("Tint", Color) = (1,1,1,1)
 		_Intensity("intensity of the texture", Range(0,0.99)) = 0
 
-		_TexWidth("Sheet Width", float) = 1.0
 		_TexHeight("Sheet Height", float) = 1.0
 
-		_CellWidth ("Cell Width", float) = 0.0
 		_CellHeight ("Cell Height", float) = 0.0
 
-		_Speed ("Speed", Range(0.01,32)) = 12
+		_Speed ("Speed", Range(0,10)) = 2
 	}
 	SubShader {
-		Tags { 
+		Tags
+		{ 
 			"Queue"="Transparent" 
+			"IgnoreProjector"="True" 
 			"RenderType"="Transparent" 
 			"PreviewType"="Plane"
-			"IgnoreProjector"="True"
+			"CanUseSpriteAtlas"="True"
 		}
-		LOD 200
-		
-		CGPROGRAM
-		#pragma surface surf Lambert
 
-		sampler2D _MainTex;
-		fixed _Intensity;
-		fixed _Speed;
-		float _TexWidth;
-		float _TexHeight;
+		Cull Off
+		Lighting Off
+		ZWrite Off
+		Fog { Mode Off }
+		Blend One OneMinusSrcAlpha
+		Pass
+		{
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			#pragma multi_compile DUMMY PIXELSNAP_ON
+			#include "UnityCG.cginc"
 
-		float _CellHeight;
-		float _CellWidth;
 
-		struct Input {
-			float2 uv_MainTex;
-		};
+			sampler2D _MainTex;
+			fixed _Intensity;
+			fixed _Speed;
+			float _TexWidth;
+			float _TexHeight;
 
-		void surf (Input IN, inout SurfaceOutput o) {
-			
-			float cellUVPerX = _CellWidth / _TexWidth;
-			float cellUVPerY = _CellHeight / _TexHeight;
-			float rowAmount = _TexWidth / _CellWidth;
-			float coloumAmount = _TexHeight / _CellHeight;
-			float xVal = fmod(_Time.y * _Speed, rowAmount);
-			xVal = ceil(xVal);
+			float _CellHeight;
+			float _CellWidth;
 
-			float yVal = _Intensity / cellUVPerY;
-			yVal = floor(yVal);
+			fixed4 _Color;
 
-			float2 spriteUV = IN.uv_MainTex;
-			float xValue = spriteUV.x;
-			float yValue = spriteUV.y;
+			struct appdata_t
+			{
+				float4 vertex   : POSITION;
+				float4 color    : COLOR;
+				float2 texcoord : TEXCOORD0;
+			};
 
-			xValue += cellUVPerX * xVal * rowAmount;
-			xValue *= cellUVPerX;
+			struct v2f
+			{
+				float4 vertex   : SV_POSITION;
+				fixed4 color    : COLOR;
+				half2 texcoord  : TEXCOORD0;
+			};
 
-			yValue += cellUVPerY * yVal * coloumAmount;
-			yValue *= cellUVPerY;
+			v2f vert(appdata_t IN)
+			{
+				v2f OUT;
+				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
+				OUT.texcoord = IN.texcoord;
+				OUT.color = IN.color * _Color;
+				#ifdef PIXELSNAP_ON
+				OUT.vertex = UnityPixelSnap (OUT.vertex);
+				#endif
+				return OUT;
+			}
 
-			spriteUV = float2(xValue,yValue);
-			half4 c = tex2D (_MainTex, spriteUV);
-			o.Albedo = c.rgb;
-			o.Alpha = c.a;
+			fixed4 frag(v2f IN) : SV_Target
+			{
+				float cellUVPerY = _CellHeight / _TexHeight;
+				float coloumAmount = _TexHeight / _CellHeight;
+				float xVal = _Time * _Speed;
+
+				float yVal = _Intensity / cellUVPerY;
+				yVal = floor(yVal);
+
+				float2 spriteUV = IN.texcoord;
+				float xValue = spriteUV.x;
+				float yValue = spriteUV.y;
+
+				xValue += xVal;
+				xValue = fmod(xValue, 1.0);
+				yValue *= cellUVPerY;
+				yValue += yVal * cellUVPerY;
+
+				spriteUV = float2(xValue,yValue);
+				fixed4 c = tex2D(_MainTex, spriteUV) * IN.color;
+				c.rgb *= c.a;
+				return c;
+			}
+
+			ENDCG
 		}
-		ENDCG
 	} 
 	FallBack "Diffuse"
 }

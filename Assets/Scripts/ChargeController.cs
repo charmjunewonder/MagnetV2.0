@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Game;
 
 public class ChargeController : MonoBehaviour {
 
 	public int score = 1;
 	// Use this for initialization
 	void Start () {
-	
+        StartCoroutine(dieInSeconds());
 	}
 	
 	// Update is called once per frame
@@ -19,8 +20,7 @@ public class ChargeController : MonoBehaviour {
 		gameObject.SetActive(false);
 	}
 	void OnTriggerEnter2D(Collider2D other) {
-		other.gameObject.GetComponent<MagnetController>().score += score;
-
+		GameData.TotalScore += score;
         gameObject.SetActive(false);
     }
 }

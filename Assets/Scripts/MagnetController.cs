@@ -6,11 +6,9 @@ public class MagnetController : MonoBehaviour {
 
     public float quantityOfCharge = 1.0f;
 
-    public float factor = 5.0f;
+    public float factor = 8.0f;
 
 	public int score = 0;
-
-    private GameObject nearestMagnet = null;
 
     private GameObject strongestMagnet = null;
 
@@ -19,10 +17,7 @@ public class MagnetController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.SetColors(Color.red, Color.red);
-        lineRenderer.SetWidth(0.1f, 0.1f);
+
 	}
 	
 	// Update is called once per frame
@@ -39,7 +34,7 @@ public class MagnetController : MonoBehaviour {
             return;
         }
         DrawLineToStrongestMagnet();
-		rigidbody2D.AddForce (strongestForce);//, ForceMode2D.Impulse);
+		rigidbody2D.AddForce (strongestForce * 10);//, ForceMode2D.Impulse);
     }
 
     public void OnQuantityChanged() {
